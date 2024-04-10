@@ -16,24 +16,21 @@ Navigate to the project directory: cd <project_directory>
 Install dependencies: npm install
 Set up your PostgreSQL database.
 Configure the database connection in the .env file.
-Run the database migrations: npm run migrate
-Start the server: npm start
-Folder Structure
-The project's folder structure is organized as follows:
 
-src: Contains the source code for the project.
-controllers: Contains the route handlers.
-middlewares: Contains custom middleware functions.
-models: Contains the database models.
-routes: Contains the route definitions.
-services: Contains business logic services.
-migrations: Contains database migration files.
-seed: Contains seed data for the database.
-tests: Contains unit and integration tests.
-API Endpoints
-/api/users: Endpoints related to user management.
-/api/diary-entries: Endpoints related to diary entries.
-Add more endpoints as needed.
+.env file setUp:
+PORT = 3000
+XCT_AUTH_SECRET_KEY = 
+XCT_COOKIE_NAME = token
+REFRESH_AUTH_SECRET_KEY =  
+
+DB_HOSTNAME=localhost
+DB_DATABASE=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=
+DB_PORT=5432 
+
+Start the server: npm start
+
 Authentication
 Authentication is implemented using JSON Web Tokens (JWT). Users need to authenticate and obtain a token to access protected routes. (isAdmin and isAuth)
 
