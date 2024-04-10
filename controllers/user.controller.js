@@ -53,7 +53,7 @@ exports.logout = (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const userId = req.user.user_id;
+    const userId = req?.user?.userId;
     let result;
     let data
     if (userId) {
@@ -73,7 +73,7 @@ exports.getUserById = async(req, res) =>{
     try {
         let result;
         let data
-        const userId = req.user.user_id;
+        const userId = req?.user?.userId;
         if (userId) {
           result = await userServices.getUserById(req.params.id); 
           data = await responseJson(200, "Success", [], result);
@@ -91,7 +91,7 @@ exports.updateUserById = async(req, res) =>{
     try {
         let result;
         let data
-        const userId = req.user.user_id;
+        const userId = req?.user?.userId;
         if (userId) {
            result = await userServices.updateUserById(req.body); 
           data = await responseJson(200, "user updated Successfully", [], result);
@@ -109,7 +109,7 @@ exports.deleteUserById = async(req, res) =>{
     try {
       let result;
       let data
-      const userId = req.user.user_id;
+      const userId = req?.user?.userId;
       if (userId) {
          result = await userServices.deleteUserById(req.params.id); 
         data = await responseJson(200, "user deleted Successfully", [], result);

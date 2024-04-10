@@ -23,7 +23,7 @@ const validateToken = async (req, res, next) => {
           try {
             const data = await getUserById(id);
             req.user = data[0];
-            const newToken = jwt.sign({ userId: data[0].user_id, username: data[0].username, userEmail: data[0].email, exp: Math.floor(Date.now() / 1000) + 1800 }, authSecret);
+            const newToken = jwt.sign({ userId: data[0].userId, username: data[0].userName, userEmail: data[0].userEmail, exp: Math.floor(Date.now() / 1000) + 1800 }, authSecret);
             res.cookie('token', newToken, { httpOnly: true, maxAge: 3600000, sameSite: 'none', secure: true });
             next();
           } catch (error) {

@@ -1,47 +1,76 @@
 const validationRules = require("./validation.rules");
 
-
 const addUserValidation = () => {
-    return [
-          validationRules.userNameCheck,
-          validationRules.userEmailCheck,
-          validationRules.userPasswordCheck
-    ];
-  };
+  return [
+    validationRules.userNameCheck,
+    validationRules.userEmailCheck,
+    validationRules.userPasswordCheck,
+    validationRules.userFullNameCheck,
+    validationRules.dateOfBirthCheck,
+    validationRules.profilePictureCheck,
+    validationRules.isAdminCheck,
+  ];
+};
 
-  const updateUserValidation = () => {
-      return [
-            validationRules.userNameCheck,
-            validationRules.userEmailCheck,
-            validationRules.userIdCheck,
-      ];
+const updateUserValidation = () => {
+  return [
+    validationRules.tunCheck,
+    validationRules.userNameCheck,
+    validationRules.userEmailCheck,
+    validationRules.userPasswordCheck,
+    validationRules.userFullNameCheck,
+    validationRules.dateOfBirthCheck,
+    validationRules.profilePictureCheck,
+    validationRules.isAdminCheck,
+  ];
+};
+
+const userLogInValidation = () => {
+  return [validationRules.userEmailCheck, validationRules.userPasswordCheck];
+};
+
+const userIdValidation = () => {
+  return [validationRules.idCheck];
+};
+
+const entryIdValidation = () => {
+  return [validationRules.entryIdCheck];
+};
+
+const addDiaryEntryValidation = () => {
+  return [
+    validationRules.userIdCheck,
+    validationRules.titleCheck,
+    validationRules.descriptionCheck,
+    validationRules.dateCheck,
+    validationRules.locationCheck,
+    validationRules.photosCheck,
+  ];
+};
+
+const updateDiaryEntryValidation = () => {
+  return [
+    validationRules.entryIdCheck,
+    validationRules.userIdCheck,
+    validationRules.titleCheck,
+    validationRules.descriptionCheck,
+    validationRules.dateCheck,
+    validationRules.locationCheck,
+    validationRules.photosCheck,
+  ];
+};
+
+const userIdDairyValidation = () => {
+      return [validationRules.userIdCheck];
     };
 
-  const userLogInValidation = () => {
-    return [
-          validationRules.userEmailCheck,
-          validationRules.userPasswordCheck,
-    ];
-  };
-
-  const addWishListValidation = () => {
-    return [
-          validationRules.productNameCheck,
-          validationRules.priceCheck,
-          validationRules.descriptionCheck
-    ];
-  };
-
-  const userIdValidation = () => {
-    return [
-          validationRules.idCheck
-    ];
-  };
-
-  const wishlistIdValidation = () => {
-    return [
-          validationRules.wishlistIdCheck
-    ];
-  };
-
-  module.exports = {addUserValidation, userLogInValidation, updateUserValidation, addWishListValidation, userIdValidation, wishlistIdValidation};
+module.exports = {
+  addUserValidation,
+  userLogInValidation,
+  updateUserValidation,
+  userIdValidation,
+  addDiaryEntryValidation,
+  updateDiaryEntryValidation,
+  entryIdValidation,
+  userIdDairyValidation
+};

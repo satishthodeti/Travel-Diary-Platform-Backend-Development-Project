@@ -1,18 +1,38 @@
 const { check } = require("express-validator");
 
-  exports.userNameCheck = check("userName")
+exports.tunCheck = check("tun")
+  .notEmpty()
+  .withMessage("tun is required")
+  .isString()
+  .withMessage("tun must be a string")
+  .trim();
+
+  exports.entryIdCheck = check("entryId")
+  .notEmpty()
+  .withMessage("entryId is required")
+  .isInt()
+  .withMessage("entryId must be integer");
+
+exports.userNameCheck = check("userName")
   .notEmpty()
   .withMessage("userName is required")
   .isString()
-  .withMessage("userName must be string")
+  .withMessage("userName must be a string")
   .trim();
 
-  exports.userEmailCheck = check("userEmail")
+exports.userEmailCheck = check("userEmail")
   .notEmpty()
   .withMessage("userEmail is required")
-  .isString()
-  .withMessage("userEmail must be string")
+  .isEmail()
+  .withMessage("Invalid email format")
   .trim();
+
+  
+  exports.userIdCheck = check("userId")
+  .notEmpty()
+  .withMessage("userId is required")
+  .isInt()
+  .withMessage("userId must be an integer");
 
   exports.userPasswordCheck = check("userPassword")
   .notEmpty()
@@ -21,42 +41,74 @@ const { check } = require("express-validator");
   .withMessage("userPassword must be string")
   .trim();
 
-  exports.productNameCheck = check("productName")
+exports.userFullNameCheck = check("userFullName")
   .notEmpty()
-  .withMessage("productName is required")
+  .withMessage("userFullName is required")
   .isString()
-  .withMessage("productName must be string")
+  .withMessage("userFullName must be a string")
   .trim();
 
-  exports.priceCheck = check("price")
+exports.dateOfBirthCheck = check("dateOfBirth")
   .notEmpty()
-  .withMessage("price is required")
-  .isString()
-  .withMessage("price must be string")
+  .withMessage("dateOfBirth is required")
+  .isDate()
+  .withMessage("Invalid date format");
+
+exports.profilePictureCheck = check("profilePicture")
+  .notEmpty()
+  .withMessage("profilePicture is required")
+  .isURL()
+  .withMessage("Invalid URL format")
   .trim();
 
-  exports.descriptionCheck = check("description")
+exports.isAdminCheck = check("isAdmin")
+  .notEmpty()
+  .withMessage("isAdmin must be a boolean value")
+  .isBoolean()
+  .withMessage("isAdmin must be a true/false");
+
+  exports.titleCheck = check("title")
+  .notEmpty()
+  .withMessage("title is required")
+  .isString()
+  .withMessage("title must be a string")
+  .trim();
+
+exports.descriptionCheck = check("description")
   .notEmpty()
   .withMessage("description is required")
   .isString()
-  .withMessage("description must be string")
+  .withMessage("description must be a string")
   .trim();
+
+exports.dateCheck = check("date")
+  .notEmpty()
+  .withMessage("date is required")
+  .isISO8601()
+  .toDate()
+  .withMessage("Invalid date format");
+
+exports.locationCheck = check("location")
+  .notEmpty()
+  .withMessage("location is required")
+  .isString()
+  .withMessage("location must be a string")
+  .trim();
+
+  exports.photosCheck = check("photos")
+    .optional()
+    .isArray({ min: 1 })
+    .withMessage("photos must be an array")
+    .custom((photos) => {
+      if (!photos.every((photo) => typeof photo === "string")) {
+        throw new Error("photos must be an array of strings (image URLs)");
+      }
+      return true;
+    });
+  
 
   exports.idCheck = check("id")
   .notEmpty()
-  .withMessage("userId is required")
+  .withMessage("id is required")
   .isInt()
-  .withMessage("userId must be integer");
-
-  exports.userIdCheck = check("userId")
-  .notEmpty()
-  .withMessage("userId is required")
-  .isInt()
-  .withMessage("userId must be integer");
-
-  exports.wishlistIdCheck = check("wishlistId")
-  .notEmpty()
-  .withMessage("wishlistId is required")
-  .isInt()
-  .withMessage("wishlistId must be integer");
-  
+  .withMessage("id must be an integer");

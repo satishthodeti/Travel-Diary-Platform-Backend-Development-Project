@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "xct API",
+    "title": "Travel Diary Platform Backend Development API",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://localhost:5000/api/v1",
+      "url": "http://localhost:3000/api/v1",
       "description": "localhost"
     }
   ],
@@ -215,91 +215,17 @@
         }
       }
     },
-    "/wishlist/insertItem": {
+    "/diary/entries/create": {
       "post": {
-        "tags": ["Wishlist"],
-        "description": "Create a new wishlist item",
+        "tags": ["Diary Entries"],
+        "summary": "Create a new Diary Entries post",
+        "description": "Create a new Diary Entries post",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateWishlistItem"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Wishlist item created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/wishlist/list": {
-      "get": {
-        "tags": ["Wishlist"],
-        "description": "Get user's wishlist",
-        "responses": {
-          "200": {
-            "description": "Wishlist items retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/wishlist/delete/{wishlistId}": {
-      "delete": {
-        "tags": ["Wishlist"],
-        "parameters": [
-          {
-            "name": "wishlistId",
-            "in": "path",
-            "description": "Wishlist item ID",
-            "schema": {
-              "$ref": "#/components/schemas/id"
-            }
-          }
-        ],
-        "description": "Delete wishlist item",
-        "responses": {
-          "201": {
-            "description": "Wishlist item deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/blog/create": {
-      "post": {
-        "tags": ["Blogs"],
-        "summary": "Create a new blog post",
-        "description": "Create a new blog post",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateBlogPost"
+                "$ref": "#/components/schemas/CreateDiaryEntries"
               }
             }
           }
@@ -318,14 +244,21 @@
         }
       }
     },
-    "/blog/all": {
+    "/diary/entries/all/{userId}": {
       "get": {
-        "tags": ["Blogs"],
-        "summary": "Get all blog posts",
-        "description": "Get all blog posts",
+        "tags": ["Diary Entries"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "get Diary Entries By userId"
+          }
+        ],
+        "summary": "Get all Diary Entries posts",
+        "description": "Get all Diary Entries posts",
         "responses": {
           "200": {
-            "description": "Blog posts retrieved successfully",
+            "description": "Diary Entries retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -337,16 +270,16 @@
         }
       }
     },
-    "/blog/get/{postId}": {
+    "/diary/entries/get/{entryId}": {
       "get": {
-        "tags": ["Blogs"],
-        "summary": "Get a blog post by ID",
-        "description": "Get a blog post by its ID",
+        "tags": ["Diary Entries"],
+        "summary": "Get a Diary Entries by ID",
+        "description": "Get a Diary Entries by its ID",
         "parameters": [
           {
-            "name": "postId",
+            "name": "entryId",
             "in": "path",
-            "description": "Blog post ID",
+            "description": "Diary Entries By entryId",
             "required": true,
             "schema": {
               "type": "integer"
@@ -355,7 +288,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Blog post retrieved successfully",
+            "description": "Diary Entries retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -367,24 +300,24 @@
         }
       }
     },
-    "/blog/update/{postId}": {
+    "/diary/entries/update": {
       "put": {
-        "tags": ["Blogs"],
-        "summary": "Update a blog post by ID",
-        "description": "Update a blog post by its ID",
+        "tags": ["Diary Entries"],
+        "summary": "Update a Diary Entries",
+        "description": "Update a Diary Entries",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateBlogPost"
+                "$ref": "#/components/schemas/UpdateDiaryEntries"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Blog post updated successfully",
+            "description": "Diary Entries updated successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -396,16 +329,16 @@
         }
       }
     },
-    "/blog/delete/{postId}": {
+    "/diary/entries/delete/{entryId}": {
       "delete": {
-        "tags": ["Blogs"],
-        "summary": "Delete a blog post by ID",
-        "description": "Delete a blog post by its ID",
+        "tags": ["Diary Entries"],
+        "summary": "Delete a Diary Entries by ID",
+        "description": "Delete a Diary Entries by its ID",
         "parameters": [
           {
-            "name": "postId",
+            "name": "entryId",
             "in": "path",
-            "description": "Blog post ID",
+            "description": "Diary Entries ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -414,7 +347,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Blog post deleted successfully",
+            "description": "Diary Entries deleted successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -430,7 +363,15 @@
   "components": {
     "schemas": {
       "Signup": {
-        "required": ["userName", "userEmail", "userPassword"],
+        "required": [
+          "userName",
+          "userEmail",
+          "userPassword",
+          "userFullName",
+          "dateOfBirth",
+          "profilePicture",
+          "isAdmin"
+        ],
         "properties": {
           "userName": {
             "type": "string",
@@ -443,6 +384,22 @@
           "userPassword": {
             "type": "string",
             "default": "satish@2024"
+          },
+          "userFullName": {
+            "type": "string",
+            "default": "Satish Thodeti"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "default": "2000-01-01"
+          },
+          "profilePicture": {
+            "type": "string",
+            "default": "https://images.pexels.com/photos/2108845/pexels-photo-2108845.jpeg?auto=compress&cs=tinysrgb&w=600"
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -460,11 +417,20 @@
         }
       },
       "updateUser": {
-        "required": ["userId", "userName", "userEmail"],
+        "required": [
+          "tun",
+          "userName",
+          "userEmail",
+          "userPassword",
+          "userFullName",
+          "dateOfBirth",
+          "profilePicture",
+          "isAdmin"
+        ],
         "properties": {
-          "userId": {
-            "type": "integer",
-            "default": 1
+          "tun": {
+            "type": "string",
+            "default": "TUN1"
           },
           "userName": {
             "type": "string",
@@ -473,6 +439,26 @@
           "userEmail": {
             "type": "string",
             "default": "satish@gmail.com"
+          },
+          "userPassword": {
+            "type": "string",
+            "default": "satish@2024"
+          },
+          "userFullName": {
+            "type": "string",
+            "default": "Satish Thodeti"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "default": "2000-01-01"
+          },
+          "profilePicture": {
+            "type": "string",
+            "default": "https://images.pexels.com/photos/2108845/pexels-photo-2108845.jpeg?auto=compress&cs=tinysrgb&w=600"
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -485,88 +471,103 @@
           }
         }
       },
-      "CreateWishlistItem": {
-        "required": ["productName", "price", "description"],
+      "CreateDiaryEntries": {
+        "required": [
+          "userId",
+          "title",
+          "description",
+          "date",
+          "location",
+          "photos",
+          "createdBy"
+        ],
         "properties": {
-          "productName": {
-            "type": "string",
-            "default": "Dell Laptop"
+          "userId": {
+            "type": "integer",
+            "default": 1,
+            "description": "The ID of the user creating the diary entry."
           },
-          "price": {
+          "title": {
             "type": "string",
-            "default": "70000"
+            "default": "Sample Title",
+            "description": "The title of the diary entry."
           },
           "description": {
             "type": "string",
-            "default": "i5 10th generation"
+            "default": "This is the description.",
+            "description": "The description of the diary entry."
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "default": "2024-04-10",
+            "description": "The date of the diary entry."
+          },
+          "location": {
+            "type": "string",
+            "default": "Sample Location",
+            "description": "The location of the diary entry."
+          },
+          "photos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": ["photo1.jpg", "photo2.jpg"],
+            "description": "An array of photo URLs for the diary entry."
           }
         }
       },
-      "CreateBlogPost": {
+      "UpdateDiaryEntries": {
         "required": [
+          "entryId",
+          "userId",
           "title",
-          "content",
-          "author",
-          "publishDate",
-          "category",
-          "tags"
+          "description",
+          "date",
+          "location",
+          "photos",
+          "createdBy"
         ],
         "properties": {
-          "title": {
-            "type": "string",
-            "default": "Sample Blog Post Title"
-          },
-          "content": {
-            "type": "string",
-            "default": "This is the content of the blog post."
-          },
-          "author": {
-            "type": "string",
-            "default": "John Doe"
-          },
-          "publishDate": {
-            "type": "string",
-            "format": "date-time",
-            "default": "2024-03-20T12:00:00Z"
-          },
-          "category": {
-            "type": "string",
-            "default": "Technology"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "default": ["tag1", "tag2"]
-          }
-        }
-      },
-      "UpdateBlogPost": {
-        "required": ["postId", "title", "content", "category", "tags"],
-        "properties": {
-          "postId": {
+          "entryId": {
             "type": "integer",
-            "default": 1
+            "default": 1,
+            "description": "The ID of the user creating the diary entry."
+          },
+          "userId": {
+            "type": "integer",
+            "default": 1,
+            "description": "The ID of the user creating the diary entry."
           },
           "title": {
             "type": "string",
-            "default": "Updated Blog Post Title"
+            "default": "Sample Title",
+            "description": "The title of the diary entry."
           },
-          "content": {
+          "description": {
             "type": "string",
-            "default": "This is the updated content of the blog post."
+            "default": "This is the description.",
+            "description": "The description of the diary entry."
           },
-          "category": {
+          "date": {
             "type": "string",
-            "default": "Updated Category"
+            "format": "date",
+            "default": "2024-04-10",
+            "description": "The date of the diary entry."
           },
-          "tags": {
+          "location": {
+            "type": "string",
+            "default": "Sample Location",
+            "description": "The location of the diary entry."
+          },
+          "photos": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "default": ["updatedTag1", "updatedTag2"]
+            "default": ["photo1.jpg", "photo2.jpg"],
+            "description": "An array of photo URLs for the diary entry."
           }
         }
       },

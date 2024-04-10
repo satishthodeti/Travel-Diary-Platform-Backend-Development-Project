@@ -1,12 +1,10 @@
 const express = require("express");
 const userRouter = require("./userRoutes");
-const wishListRouter = require("./wishlistRoutes");
-const blogRouter = require("./blogRoutes");
+const diaryEntriesRouter = require("./diaryEntriesRoutes");
 const { validateToken } = require('../healpers/token.Validator')
 const router = express.Router();
 
 router.use('/user', userRouter);
-router.use('/wishlist', validateToken, wishListRouter);
-router.use('/blog', validateToken,  blogRouter);
+router.use('/diary/entries', validateToken,  diaryEntriesRouter);
 
 module.exports = router;

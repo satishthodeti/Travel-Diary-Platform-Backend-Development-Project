@@ -2,14 +2,16 @@ const userRepository = require("../respositories/user.respository");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { authSecret, refreshTokenSecret } = require("../config");
+const { mapResponse, mapArrayResponse } = require("../mappers/mapper");
 
 async function insertUser(body){
     try {
       const { userPassword } = body;
       const encryptedPassword = await bcrypt.hash(userPassword, 10);
-      body.encryptedPassword = encryptedPassword;
+      body.userPassword = encryptedPassword;
        const result = await userRepository.userInsert(body);
-       return result;
+       const data = mapResponse(result);
+       return data;
     } catch (error) {
        throw(error);
     }
@@ -20,17 +22,18 @@ try {
    const {userEmail, userPassword}  = body;
    const user = await userRepository.findByEmail(userEmail);
    if (user.length > 0) {
-     const isSame = await bcrypt.compare(userPassword, user[0].password);
+     const isSame = await bcrypt.compare(userPassword, user[0].user_password);
      if (isSame) {
-       let token = jwt.sign({ userId: user[0].user_id, username:user[0].username, userEmail}, authSecret, {
+       let token = jwt.sign({ userId: user[0].user_id, username:user[0].user_name, userEmail}, authSecret, {
          expiresIn: Math.floor(Date.now() / 1000) + 18000,
        });
        const refreshToken = jwt.sign(
-          {  userId: user[0].user_id, username:user[0].username, userEmail},
+          {  userId: user[0].user_id, username:user[0].user_name, userEmail},
          refreshTokenSecret,
          { expiresIn: "1d" }
        );
-       const data = user[0];
+       const dataResult = user[0];
+       const data = mapResponse(dataResult);
        return { token, data, refreshToken };
      } else {
        return {
@@ -53,7 +56,12 @@ try {
 
 async function forgetPassword(body){
     try {
+      const { userPassword } = body;
+      const encryptedPassword = await bcrypt.hash(userPassword, 10);
+      body.userPassword = encryptedPassword;
        const result = await userRepository.forgetPassword(body);
+       const data  = mapResponse(result);
+       return data;
        return result;
     } catch (error) {
        throw(error);
@@ -63,7 +71,8 @@ async function forgetPassword(body){
 async function getUsers(){
     try {
        const result = await userRepository.getUsers();
-       return result;
+       const data  = mapArrayResponse(result);
+       return data;
     } catch (error) {
        throw(error);
     }
@@ -72,7 +81,8 @@ async function getUsers(){
 async function getUserById(id){
     try {
        const result = await userRepository.getUserById(id);
-       return result;
+       const data  = mapArrayResponse(result);
+       return data;
     } catch (error) {
        throw(error);
     }
@@ -90,7 +100,7 @@ async function updateUserById(body){
 async function deleteUserById(id){
     try {
        const result = await userRepository.deleteUserById(id);
-       return result;
+       return ;
     } catch (error) {
        throw(error);
     }
