@@ -18,7 +18,7 @@ const {
 } = diaryEntryController;
 
 router.post("/create", addDiaryEntryValidation(), validate, createDiaryEntry);
-router.get("/all/:userId", userIdDairyValidation(), validate, getAllDiaryEntriesByUserId);
+router.get("/get/allmy/diaryentrys", validate, getAllDiaryEntriesByUserId);
 router.get("/get/:entryId", entryIdValidation(), validate, getDiaryEntryById);
 router.put("/update",updateDiaryEntryValidation(), validate, isAuth, updateDiaryEntryById);
 router.delete("/delete/:entryId", entryIdValidation(), validate, isAuth, deleteDiaryEntryById);

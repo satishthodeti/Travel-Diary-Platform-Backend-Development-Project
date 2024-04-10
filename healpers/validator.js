@@ -27,7 +27,7 @@ const isAdmin = async(req,res,next)=>{
 
 const isAuth = async (req, res, next) => {
     const errors = validationResult(req);
-    const id = req?.params?.entryId ? req.params.entryId || req.params.userId : req.body.entryId || req.body.userId;
+    const id = req?.params?.entryId ? req.params.entryId || req.params.userId : req.body.entryId || req.body.userId || req.user.userId;
     let data 
     if(req?.params?.entryId ||  req?.body?.entryId){
         data = await diaryEntryServices.getDiaryEntryById(id)

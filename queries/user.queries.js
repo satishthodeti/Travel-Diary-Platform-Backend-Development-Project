@@ -19,12 +19,10 @@ const userQueries = {
         SET user_name = $2, user_email = $3, user_full_name = $4, date_of_birth = $5, profile_picture = $6, updated_at = $7, is_admin = $8
         WHERE user_id = $1 RETURNING *;`,
     
-    deleteUser: `DELETE FROM tdp.users 
-        WHERE user_id = $1 RETURNING *`,
+    deleteUser: `UPDATE  tdp.users 
+    SET is_deleted = true
+    WHERE user_id = $1 RETURNING *`,
         
-    isDeleteTrue:   `UPDATE tdp.users
-        SET is_deleted = true
-        WHERE user_id = $1;`,
     isDeleteQiaryEntriesTrue:   `UPDATE tdp.diary_entries
         SET is_deleted = true
         WHERE user_id = $1;`,

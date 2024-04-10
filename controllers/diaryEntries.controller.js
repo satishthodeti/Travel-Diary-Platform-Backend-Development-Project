@@ -4,8 +4,7 @@ const errorResponseJson = require("../healpers/errorResponse");
 
 exports.getAllDiaryEntriesByUserId = async (req, res) => {
     try {
-        const userId = req?.params?.userId; 
-        const result = await diaryEntryService.getAllDiaryEntriesByUserId(userId);
+        const result = await diaryEntryService.getAllDiaryEntriesByUserId(req.user);
         const data = await responseJson(200, "Success", [], result);
         return res.status(200).json(data);
     } catch (error) {

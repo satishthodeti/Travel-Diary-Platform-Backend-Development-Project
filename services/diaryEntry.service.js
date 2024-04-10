@@ -11,9 +11,9 @@ async function createDiaryEntry(body, user) {
     }
 }
 
-async function getAllDiaryEntriesByUserId(userId) {
+async function getAllDiaryEntriesByUserId(user) {
     try {
-        const result = await diaryEntryRepository.getDiaryEntriesByUserId(userId);
+        const result = await diaryEntryRepository.getDiaryEntriesByUserId(user);
         const data = mapArrayResponse(result);
         return data;
     } catch (error) {

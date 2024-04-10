@@ -70,8 +70,8 @@ async function updateUserById(body) {
 
 async function deleteUserById(id) {
     try {
-        const result = await query(userQueries.deleteUser, [id]);
         await query(userQueries.isDeleteQiaryEntriesTrue, [id])
+        const result = await query(userQueries.deleteUser, [id]);
         return result.rows;
     } catch (error) {
         throw error;

@@ -4,8 +4,7 @@ const diaryEntryQueries = {
         VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`,
     
     getDiaryEntriesByUserId: `SELECT entry_id, ude, user_id, title, description, date, location, photos, created_at, updated_at, is_deleted
-        FROM tdp.diary_entries
-        WHERE user_id = $1 AND NOT is_deleted;`,
+        FROM tdp.diary_entries`,
     
     getDiaryEntryById: `SELECT de.entry_id, de.ude, de.user_id, de.title, de.description, de.date, de.location, de.photos, de.created_at, de.updated_at, de.is_deleted, tu.is_admin
         FROM tdp.diary_entries de

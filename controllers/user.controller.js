@@ -111,7 +111,7 @@ exports.deleteUserById = async(req, res) =>{
       let data
       const userId = req?.user?.userId;
       if (userId) {
-         result = await userServices.deleteUserById(req.params.id); 
+         result = await userServices.deleteUserById(req.params.id, req.user); 
         data = await responseJson(200, "user deleted Successfully", [], result);
       } else {
         data = await responseJson(401, "User not authenticated. Please login again.", [], result);

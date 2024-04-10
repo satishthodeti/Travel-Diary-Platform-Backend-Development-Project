@@ -11,9 +11,12 @@ async function insertDiaryEntry(body, user) {
     }
 }
 
-async function getDiaryEntriesByUserId(userId) {
+async function getDiaryEntriesByUserId(user) {
+    const {userId, isAdmin} = user;
     try {
-        const result = await query(diaryEntryQueries.getDiaryEntriesByUserId, [userId]);
+        const filterQuery = isAdmin  ? ` WHERE NOT is_deleted;`: 
+                                       ` WHERE user_id = ${userId} AND NOT is_deleted;`;
+        const result = await query(`${diaryEntryQueries.getDiaryEntriesByUserId}${filterQuery}`);
         return result.rows;
     } catch (error) {
         throw error;

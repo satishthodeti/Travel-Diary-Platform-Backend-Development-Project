@@ -244,16 +244,9 @@
         }
       }
     },
-    "/diary/entries/all/{userId}": {
+    "/diary/entries/get/allmy/diaryentrys": {
       "get": {
         "tags": ["Diary Entries"],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "get Diary Entries By userId"
-          }
-        ],
         "summary": "Get all Diary Entries posts",
         "description": "Get all Diary Entries posts",
         "responses": {
@@ -477,7 +470,6 @@
       },
       "CreateDiaryEntries": {
         "required": [
-          "userId",
           "title",
           "description",
           "date",
@@ -486,11 +478,6 @@
           "createdBy"
         ],
         "properties": {
-          "userId": {
-            "type": "integer",
-            "default": 1,
-            "description": "The ID of the user creating the diary entry."
-          },
           "title": {
             "type": "string",
             "default": "Sample Title",
@@ -525,7 +512,6 @@
       "UpdateDiaryEntries": {
         "required": [
           "entryId",
-          "userId",
           "title",
           "description",
           "date",
@@ -535,11 +521,6 @@
         ],
         "properties": {
           "entryId": {
-            "type": "integer",
-            "default": 1,
-            "description": "The ID of the user creating the diary entry."
-          },
-          "userId": {
             "type": "integer",
             "default": 1,
             "description": "The ID of the user creating the diary entry."

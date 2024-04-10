@@ -39,7 +39,6 @@ const entryIdValidation = () => {
 
 const addDiaryEntryValidation = () => {
   return [
-    validationRules.userIdCheck,
     validationRules.titleCheck,
     validationRules.descriptionCheck,
     validationRules.dateCheck,
@@ -51,7 +50,6 @@ const addDiaryEntryValidation = () => {
 const updateDiaryEntryValidation = () => {
   return [
     validationRules.entryIdCheck,
-    validationRules.userIdCheck,
     validationRules.titleCheck,
     validationRules.descriptionCheck,
     validationRules.dateCheck,
