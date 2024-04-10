@@ -91,7 +91,8 @@ async function getUserById(id){
 async function updateUserById(body){
     try {
        const result = await userRepository.updateUserById(body);
-       return result;
+       const data  = mapResponse(result);
+       return data;
     } catch (error) {
        throw(error);
     }

@@ -428,6 +428,10 @@
           "isAdmin"
         ],
         "properties": {
+          "userId": {
+            "type": "integer",
+            "default": 1
+          },
           "tun": {
             "type": "string",
             "default": "TUN1"

@@ -1,6 +1,7 @@
 const {validationResult} = require('express-validator');
 const responseJson = require("./response");
 const diaryEntryServices = require("../services/diaryEntry.service");
+const userServices = require("../services/user.service");
 
 const validate = async(req,res,next)=>{
     const errors = validationResult(req);
@@ -27,7 +28,13 @@ const isAdmin = async(req,res,next)=>{
 const isAuth = async (req, res, next) => {
     const errors = validationResult(req);
     const id = req?.params?.entryId ? req.params.entryId || req.params.userId : req.body.entryId || req.body.userId;
-    const data = await diaryEntryServices.getDiaryEntryById(id);
+    let data 
+    if(req?.params?.entryId ||  req?.body?.entryId){
+        data = await diaryEntryServices.getDiaryEntryById(id)
+    }else{
+       const  result = await userServices.getUserById(id);
+       data = result[0];
+    }
 
     if (errors.isEmpty() && (req.user.isAdmin || data.userId === req.user.userId)) {
         return next();

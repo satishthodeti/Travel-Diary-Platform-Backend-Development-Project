@@ -3,8 +3,8 @@ const userQueries = require("../queries/user.queries");
 
 async function userInsert(body) {
     try {
-        const { userName, userPassword, userEmail, userFullName, dateOfBirth, profilePicture } = body;
-        const result = await query(userQueries.insertUser, [userName, userPassword, userEmail, userFullName, dateOfBirth, profilePicture, new Date(), new Date(), false]);
+        const { userName, userPassword, userEmail, userFullName, dateOfBirth, profilePicture, isAdmin = false } = body;
+        const result = await query(userQueries.insertUser, [userName, userPassword, userEmail, userFullName, dateOfBirth, profilePicture, new Date(), new Date(), false, isAdmin]);
         return result.rows[0];
     } catch (error) {
         throw error;
@@ -60,9 +60,9 @@ async function getUserById(id) {
 
 async function updateUserById(body) {
     try {
-        const { userId, userName, userEmail, userFullName, dateOfBirth, profilePicture } = body;
-        const result = await query(userQueries.updateUser, [userId, userName, userEmail, userFullName, dateOfBirth, profilePicture, new Date()]);
-        return result.rows;
+        const { userId, userName, userEmail, userFullName, dateOfBirth, profilePicture, isAdmin = false  } = body;
+        const result = await query(userQueries.updateUser, [userId, userName, userEmail, userFullName, dateOfBirth, profilePicture, new Date(), isAdmin]);
+        return result.rows[0];
     } catch (error) {
         throw error;
     }
