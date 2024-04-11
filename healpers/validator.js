@@ -14,7 +14,7 @@ const validate = async(req,res,next)=>{
 
 const isAdmin = async(req,res,next)=>{
     const errors = validationResult(req);
-    if(errors.isEmpty() && req.user.isAdmin){
+    if(errors.isEmpty() && req?.user?.isAdmin){
         return next();
     } else if (!errors.isEmpty()) {
         const response = await responseJson(400, "Bad Request", errors.errors, undefined);
